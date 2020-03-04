@@ -7,10 +7,27 @@
     <!-- <link rel="stylesheet" type="text/css" href="dist/<some_css_file>.css"/> -->
   </head>
   <body spellcheck="false">
-    <div>Hello World</div>
+    <div id="container"></div>
   </body>
 </html>
 <!-- <script defer type="module" src="src/js/module.js"></script> -->
 <script type="module">
-  // Some JavaScript Code
+
+  import breadcrumb from '/src/js/module.js';
+
+  const options = {
+    'div': 'container',
+    'breadcrumbs': {
+      'items': [{
+        'item': 'Photos'
+      }, {
+        'item': 'Animals'
+      }, {
+        'item': 'Pigs'
+      }]
+    }
+  }
+
+  breadcrumb.init(options);
+
 </script>
