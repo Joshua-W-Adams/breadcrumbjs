@@ -22,16 +22,16 @@ function _addElement(parent, type) {
   return element;
 }
 
-function _onHoverDefault(element) {
-  if (onHoverRow !== element) {
+function _onHoverDefault(li) {
+  if (onHoverRow !== li) {
     // clear current styling
     onHoverRow.style.textDecoration = '';
     onHoverRow.style.color = '#007bff';
     // set new row
-    onHoverRow = element;
+    onHoverRow = li;
     // set default styling
-    element.style.textDecoration = 'underline';
-    element.style.color = '#333';
+    li.style.textDecoration = 'underline';
+    li.style.color = '#333';
   }
 }
 
@@ -43,22 +43,21 @@ function _onDblClickDefault() {
   console.log('You double clicked!');
 }
 
-function _onEvent(element, defaultcb) {
-  defaultcb(element);
-}
-
 function _containerRenderer() {
   const container = {};
   container.className = 'breadcrumb-menu';
   container.style = {
+    // generic styling for all modules
+    'font-size': '16px',
+    'font-family': 'roboto',
+    'margin': '0px',
+    padding: '10px',
+    // specific module styling
     display: 'flex',
     'flex-wrap': 'wrap',
-    padding: '0.75rem 1rem',
-    'margin-bottom': '1rem',
     'list-style': 'none',
-    border: '1px solid rgba(0,0,0,.125)',
+    'border-bottom': '1px solid rgba(0,0,0,.125)',
     'border-radius': '3px',
-    'background-color': '#eee'
   };
   return container;
 }
@@ -112,9 +111,9 @@ function _addBreadcrumbs(ol, options) {
     const breadcrumb = arr[i];
     // Get user configuration for each item
     const cnf = {
-      onClick: breadcrumb.onClick || options.breadcrumbs.onClick || _onEvent,
-      onDblClick: breadcrumb.onDblClick || options.breadcrumbs.onDblClick || _onEvent,
-      onHover: breadcrumb.onHover || options.breadcrumbs.onHover || _onEvent,
+      onClick: breadcrumb.onClick || options.breadcrumbs.onClick || _onClickDefault,
+      onDblClick: breadcrumb.onDblClick || options.breadcrumbs.onDblClick || _onDblClickDefault,
+      onHover: breadcrumb.onHover || options.breadcrumbs.onHover || _onHoverDefault,
       renderer: breadcrumb.renderer || options.breadcrumbs.renderer || _liRenderer
     };
     // add breadcrumb elements
@@ -132,17 +131,16 @@ function _addBreadcrumbs(ol, options) {
     }
     // apply menu item functionality
     li.onclick = function onclick() {
-      return cnf.onClick(li, _onClickDefault);
+      return cnf.onClick(li, arr, i);
     };
     li.ondblclick = function ondblclick() {
-      return cnf.onDblClick(li, _onDblClickDefault);
+      return cnf.onDblClick(li, arr, i);
     };
     li.onmouseover = function onmouseover() {
-      return cnf.onHover(li, _onHoverDefault);
+      return cnf.onHover(li, arr, i);
     };
     li.onmouseout = function onmouseout() {
-      const dummyElement = { style: {} };
-      return cnf.onHover(dummyElement, _onHoverDefault);
+      return cnf.onHover(li, arr, i);
     };
   }
 }
