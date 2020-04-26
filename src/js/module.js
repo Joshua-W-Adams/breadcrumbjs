@@ -56,8 +56,6 @@ function _containerRenderer() {
     display: 'flex',
     'flex-wrap': 'wrap',
     'list-style': 'none',
-    'border-bottom': '1px solid rgba(0,0,0,.125)',
-    'border-radius': '3px',
   };
   return container;
 }
