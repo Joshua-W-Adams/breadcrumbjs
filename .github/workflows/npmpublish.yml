@@ -4,7 +4,11 @@
 name: Node.js Package
 
 on:
-  [push]
+   # Trigger the workflow on push request,
+  # but only for the master branch
+  push:
+    branches:
+      - master
 
 jobs:
   build:
