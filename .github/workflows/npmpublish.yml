@@ -30,6 +30,7 @@ jobs:
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NPM_REGISTRY_URL: registry.npmjs.org
 
   publish-gpr:
     needs: build
