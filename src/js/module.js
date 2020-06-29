@@ -36,11 +36,11 @@ function _onHoverDefault(li) {
 }
 
 function _onClickDefault() {
-  console.log('You clicked once!');
+
 }
 
 function _onDblClickDefault() {
-  console.log('You double clicked!');
+
 }
 
 function _containerRenderer() {
